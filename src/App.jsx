@@ -1,23 +1,13 @@
 import { useState } from 'react'
+import Header from './components/Header'
 
 function App() {
   const [count, setCount] = useState(0)
 
   return (
     <div className="min-h-screen bg-[#f8f6f2]">
-      {/* Header */}
-      <header className="coffee-gradient text-white p-6 shadow-lg">
-        <div className="container mx-auto flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <i className="fas fa-coffee text-3xl"></i>
-            <h1 className="text-2xl font-bold font-poppins">Berry Bora</h1>
-          </div>
-          <div className="flex items-center gap-2">
-            <span className="text-sm">Welcome, Farmer</span>
-            <i className="fas fa-user-circle text-2xl"></i>
-          </div>
-        </div>
-      </header>
+      {/* Use the Header component */}
+      <Header />
 
       {/* Main Content */}
       <main className="container mx-auto px-4 py-8">
@@ -57,13 +47,6 @@ function App() {
                 <p className="font-semibold">Green Primary</p>
               </div>
             </div>
-
-            {/* Icons */}
-            <div className="flex justify-center gap-6 text-3xl text-coffee-dark">
-              <i className="fas fa-chart-line hover:text-green-primary transition-colors cursor-pointer"></i>
-              <i className="fas fa-tag hover:text-green-primary transition-colors cursor-pointer"></i>
-              <i className="fas fa-bell hover:text-green-primary transition-colors cursor-pointer"></i>
-            </div>
           </div>
         </div>
 
@@ -72,8 +55,8 @@ function App() {
           <div className="flex items-center">
             <i className="fas fa-check-circle text-2xl mr-3"></i>
             <div>
-              <p className="font-bold">Tailwind CSS 3.3.0 is working! ✅</p>
-              <p className="text-sm">Coffee theme loaded successfully.</p>
+              <p className="font-bold">Header Component Working! ✅</p>
+              <p className="text-sm">Zustand store is connected. User name: Farmer</p>
             </div>
           </div>
         </div>
@@ -83,6 +66,7 @@ function App() {
       <footer className="footer-coffee py-6 mt-12">
         <div className="container mx-auto text-center">
           <p className="text-sm">© 2026 Berry Bora | Empowering Kenyan Coffee Farmers</p>
+          <p className="text-xs mt-2 opacity-75">Header Component ✅ | Zustand Store ✅</p>
         </div>
       </footer>
     </div>
