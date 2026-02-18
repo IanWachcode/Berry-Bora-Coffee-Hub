@@ -1,71 +1,95 @@
-import { useState } from 'react'
-import Header from './components/Header'
-import Footer from './components/Footer'
+import React from 'react';
+import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import Layout from './components/Layout';
+import { useAppStore } from './store/appStore';
 
-function App() {
-  const [count, setCount] = useState(0)
+const Home = () => {
+  <div className="container mx-auto px-4 py-8">
+    <div className="bg-white rounded-xl shadow-lg p-8 text-center">
+      <i className="fas fa-seedling text-6xl text-coffee-dark mb-4"></i>
+      <h2 className="text-4xl font-bold text-coffee-dark mb-4">Home Page</h2>
+      <p className="text-gray-600">Welcome to Berry Bora Coffee Platform</p>
+  </div>
+  </div>
+};
+
+const Prices = () => {
+  const showNotification = useAppStore((state)=> state.showNotification);
 
   return (
-    <div className="min-h-screen bg-[#f8f6f2] flex flex-col">
-      {/* Use the Header component */}
-      <Header />
+  <div className="container mx-auto px-4 py-8">
+    <div className="bg-white rounded-xl shadow-lg p-8 text-center">
+      <i className="fas fa-tag text-6xl text-coffee-dark mb-4"></i>
+      <h2 className="text-3xl font-bold text-coffee-dark mb-4">Price Page</h2>
+      <p className="text-gray-600 mb-6">Coffee prices will be displayed here</p>
+      {/*test notification button*/}
+      <button
+      onClick={() => showNotification('Price alert: Arabica AA increased by 5%!')}
+          className="bg-green-primary hover:bg-green-600 text-white font-semibold py-2 px-6 rounded-lg transition-colors"
+        >
+          <i className="fas fa-bell mr-2"></i>
+          Test Notification
+        </button>
+    </div>
+    </div>
+  );
+};
 
-      {/* Main Content */}
-      <main className="flex-grow container mx-auto px-4 py-8">
-        <div className="bg-white rounded-xl shadow-lg p-8 mb-8">
-          <div className="text-center">
-            <i className="fas fa-seedling text-6xl text-green-primary mb-4"></i>
-            <h2 className="text-4xl font-bold text-coffee-dark mb-4">
-              Welcome to Berry Bora
-            </h2>
-            <p className="text-gray-600 text-lg mb-6">
-              Empowering Kenyan Coffee Farmers with Real-Time Market Insights
-            </p>
-            
-            {/* Counter Test */}
-            <div className="bg-coffee-highlight rounded-lg p-6 mb-6">
-              <button 
-                onClick={() => setCount((count) => count + 1)}
-                className="bg-coffee-dark hover:bg-coffee-medium text-white font-semibold py-3 px-6 rounded-lg transition-colors"
-              >
-                <i className="fas fa-plus-circle mr-2"></i>
-                Count is {count}
-              </button>
-            </div>
+const Trends = () => {
+  <div className="container mx-auto px-4 py-8">
+    <div className="bg-white rounded-xl shadow-lg p-8 text-center">
+      <i className="fas fa-chart-line text-6xl text-coffee-dark mb-4"></i>
+      <h2 className="text-3xl font-bold text-coffee-dark mb-4">Trends Page</h2>
+      <p className="text-gray-600">Market trends and charts will be shown here</p>
+    </div>
+  </div>
+};
 
-            {/* Color Palette */}
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
-              <div className="bg-coffee-dark text-white p-4 rounded-lg">
-                <p className="font-semibold">Coffee Dark</p>
-              </div>
-              <div className="bg-coffee-medium text-white p-4 rounded-lg">
-                <p className="font-semibold">Coffee Medium</p>
-              </div>
-              <div className="bg-coffee-light text-white p-4 rounded-lg">
-                <p className="font-semibold">Coffee Light</p>
-              </div>
-              <div className="bg-green-primary text-white p-4 rounded-lg">
-                <p className="font-semibold">Green Primary</p>
-              </div>
-            </div>
-          </div>
-        </div>
+const Alerts = () => (
+  <div className="container mx-auto px-4 py-8">
+    <div className="bg-white rounded-xl shadow-lg p-8 text-center">
+      <i className="fas fa-exclamation-triangle text-6xl text-coffee-dark mb-4"></i>
+      <h2 className="text-3xl font-bold text-coffee-dark mb-4">Alerts Page</h2>
+      <p className="text-gray-600">Important alerts and notifications</p>
+    </div>
+  </div>
+);
 
-        {/* Success Message */}
-        <div className="bg-green-100 border-l-4 border-green-primary text-green-700 p-4 rounded-lg">
-          <div className="flex items-center">
-            <i className="fas fa-check-circle text-2xl mr-3"></i>
-            <div>
-              <p className="font-bold">Header Footer Zustand Store Components Working! ✅</p>
-            </div>
-          </div>
-        </div>
-      </main>
+const Weights = () => {
+  <div className="container mx-auto px-4 py-8">
+    <div className="bg-white rounded-xl shadow-lg p-8 text-center">
+      <i className="fas fa-weight text-6xl text-coffee-dark mb-4"></i>
+      <h2 className="text-3xl font-bold text-coffee-dark mb-4">Weights Page</h2>
+      <p className="text-gray-600">Record your harvest weights here</p>
+    </div>
+  </div>
+};
 
-      {/* Footer */}
-      <Footer/>
-      </div>
-  )
+const Settings = () => {
+  <div className="container mx-auto px-4 py-8">
+    <div className="bg-white rounded-xl shadow-lg p-8 text-center">
+      <i className="fas fa-cog text-6xl text-coffee-dark mb-4"></i>
+      <h2 className="text-3xl font-bold text-coffee-dark mb-4">Settings Page</h2>
+      <p className="text-gray-600">Manage your account and preferences</p>
+    </div>
+  </div>
+};
+
+function App() {
+  return (
+    <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Layout />}>
+          <Route path="/" element={<Navigate to="/prices" replace />} />
+          <Route path="/prices" element={<Prices />} />
+          <Route path="/trends" element={<Trends />} />
+          <Route path="/alerts" element={<Alerts />} />
+          <Route path="/weights" element={<Weights />} />
+          <Route path="/settings" element={<Settings />} />
+          </Route>
+        </Routes>
+      </BrowserRouter>
+  );
 }
 
 export default App
