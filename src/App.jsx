@@ -1,16 +1,17 @@
 import { useState } from 'react'
 import Header from './components/Header'
+import Footer from './components/Footer'
 
 function App() {
   const [count, setCount] = useState(0)
 
   return (
-    <div className="min-h-screen bg-[#f8f6f2]">
+    <div className="min-h-screen bg-[#f8f6f2] flex flex-col">
       {/* Use the Header component */}
       <Header />
 
       {/* Main Content */}
-      <main className="container mx-auto px-4 py-8">
+      <main className="flex-grow container mx-auto px-4 py-8">
         <div className="bg-white rounded-xl shadow-lg p-8 mb-8">
           <div className="text-center">
             <i className="fas fa-seedling text-6xl text-green-primary mb-4"></i>
@@ -55,21 +56,15 @@ function App() {
           <div className="flex items-center">
             <i className="fas fa-check-circle text-2xl mr-3"></i>
             <div>
-              <p className="font-bold">Header Component Working! ✅</p>
-              <p className="text-sm">Zustand store is connected. User name: Farmer</p>
+              <p className="font-bold">Header Footer Zustand Store Components Working! ✅</p>
             </div>
           </div>
         </div>
       </main>
 
       {/* Footer */}
-      <footer className="footer-coffee py-6 mt-12">
-        <div className="container mx-auto text-center">
-          <p className="text-sm">© 2026 Berry Bora | Empowering Kenyan Coffee Farmers</p>
-          <p className="text-xs mt-2 opacity-75">Header Component ✅ | Zustand Store ✅</p>
-        </div>
-      </footer>
-    </div>
+      <Footer/>
+      </div>
   )
 }
 
