@@ -5,6 +5,7 @@ const Navigation = () => {
   const location = useLocation();
   
   const navItems = [
+    {path: '/', icon: 'fa-home', label: 'Home' },
     { path: '/prices', icon: 'fa-tag', label: 'Prices' },
     { path: '/trends', icon: 'fa-chart-line', label: 'Trends' },
     { path: '/alerts', icon: 'fa-exclamation-triangle', label: 'Alerts' },
