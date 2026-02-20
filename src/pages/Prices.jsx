@@ -1,9 +1,8 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useAppStore } from '../store/appStore';
 
 const Prices = () => {
   const showNotification = useAppStore((state) => state.showNotification);
-  const [loading, setLoading] = useState(false);
 
   const priceData = [
     { grade: 'Arabica AA', price: 550, change: '+5.0%', trend: 'up', quality: 'Premium' },
