@@ -1,6 +1,8 @@
 import React from 'react';
 import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import Layout from './components/Layout';
+
+// Import pages
 import Home from './pages/Home';
 import Prices from './pages/Prices';
 import Trends from './pages/Trends';
