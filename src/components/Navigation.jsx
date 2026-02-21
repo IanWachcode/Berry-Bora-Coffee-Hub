@@ -5,7 +5,7 @@ const Navigation = () => {
   const location = useLocation();
   
   const navItems = [
-    {path: '/', icon: 'fa-home', label: 'Home' },
+    { path: '/', icon: 'fa-home', label: 'Home' },
     { path: '/prices', icon: 'fa-tag', label: 'Prices' },
     { path: '/trends', icon: 'fa-chart-line', label: 'Trends' },
     { path: '/alerts', icon: 'fa-exclamation-triangle', label: 'Alerts' },
@@ -27,10 +27,8 @@ const Navigation = () => {
                     : 'text-gray-600 hover:text-coffee-dark'
                 }`}
               >
-                <i className={`fas ${item.icon} text-lg`}></i>
-                <span className="navbar-text text-xs block mt-1">
-                  {item.label}
-                </span>
+                <i className={`fas ${item.icon} text-base`}></i>
+                <span className="navbar-text text-xs block mt-1">{item.label}</span>
               </Link>
             </li>
           ))}

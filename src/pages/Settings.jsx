@@ -13,107 +13,70 @@ const Settings = () => {
   const handleSave = (e) => {
     e.preventDefault();
     setUserName(tempName);
-    showNotification('Settings saved successfully!');
+    showNotification('Settings saved!');
   };
 
   return (
-    <div className="container mx-auto px-4 py-8 max-w-2xl">
-      <div className="mb-8">
-        <h2 className="text-3xl font-bold text-coffee-dark mb-2">Settings</h2>
-        <p className="text-gray-600">Manage your account and preferences</p>
-      </div>
+    <div className="container mx-auto px-4 py-4 max-w-xl">
+      <h2 className="text-2xl font-bold mb-1">Settings</h2>
+      <p className="text-sm text-gray-600 mb-4">Manage your preferences</p>
 
-      <div className="bg-white rounded-xl shadow-lg p-6">
-        <form onSubmit={handleSave} className="space-y-6">
-          {/* User Name */}
+      <div className="bg-white rounded-lg shadow p-4">
+        <form onSubmit={handleSave} className="space-y-3">
           <div>
-            <label
-              htmlFor="name"
-              className="block text-sm font-medium text-gray-700 mb-2"
-            >
-              Your Name
-            </label>
+            <label className="block text-sm font-medium mb-1">Your Name</label>
             <input
               type="text"
-              id="name"
               value={tempName}
               onChange={(e) => setTempName(e.target.value)}
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-coffee-dark focus:border-transparent"
+              className="w-full px-3 py-2 border rounded focus:ring-2 focus:ring-coffee-dark"
             />
           </div>
 
-          {/* Language */}
           <div>
-            <label
-              htmlFor="language"
-              className="block text-sm font-medium text-gray-700 mb-2"
-            >
-              Language
-            </label>
+            <label className="block text-sm font-medium mb-1">Language</label>
             <select
-              id="language"
               value={language}
               onChange={(e) => setLanguage(e.target.value)}
-              className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-coffee-dark focus:border-transparent"
+              className="w-full px-3 py-2 border rounded focus:ring-2 focus:ring-coffee-dark"
             >
               <option value="en">English</option>
-              <option value="sw">Swahili (Kiswahili)</option>
-              <option value="ki">Kikuyu (Gĩkũyũ)</option>
+              <option value="sw">Swahili</option>
+              <option value="ki">Kikuyu</option>
             </select>
           </div>
 
-          {/* Notifications Toggle */}
-          <div className="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
+          <div className="flex items-center justify-between p-2 bg-gray-50 rounded">
             <div>
-              <p className="font-medium text-gray-800">Push Notifications</p>
-              <p className="text-sm text-gray-600">
-                Receive alerts about prices and weather
-              </p>
+              <p className="text-sm font-medium">Push Notifications</p>
+              <p className="text-xs text-gray-500">Receive alerts</p>
             </div>
             <button
               type="button"
               onClick={() => setNotifications(!notifications)}
-              className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${
+              className={`relative inline-flex h-6 w-11 items-center rounded-full ${
                 notifications ? 'bg-green-600' : 'bg-gray-300'
               }`}
             >
               <span
-                className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${
+                className={`inline-block h-4 w-4 transform rounded-full bg-white transition ${
                   notifications ? 'translate-x-6' : 'translate-x-1'
                 }`}
               />
             </button>
           </div>
 
-          {/* Save Button */}
           <button
             type="submit"
-            className="w-full bg-coffee-dark hover:bg-coffee-medium text-white font-semibold py-3 px-6 rounded-lg transition-colors"
+            className="w-full bg-coffee-dark hover:bg-coffee-medium text-white font-semibold py-2 rounded"
           >
-            <i className="fas fa-save mr-2"></i>
             Save Settings
           </button>
         </form>
 
-        {/* About Section */}
-        <div className="mt-8 pt-6 border-t">
-          <h3 className="text-lg font-semibold text-coffee-dark mb-3">
-            About Berry Bora
-          </h3>
-          <div className="space-y-2 text-sm text-gray-700">
-            <p>
-              <strong>Version:</strong> 1.0.0
-            </p>
-            <p>
-              <strong>Support:</strong> help@berybora.ke
-            </p>
-            <p>
-              <strong>SMS Helpline:</strong> Send <strong>HELP</strong> to 22000
-            </p>
-            <p>
-              <strong>Location:</strong> Nairobi, Kenya
-            </p>
-          </div>
+        <div className="mt-4 pt-4 border-t text-xs text-gray-600 space-y-1">
+          <p><strong>Version:</strong> 1.0.2</p>
+          <p><strong>SMS:</strong> 22000</p>
         </div>
       </div>
     </div>
