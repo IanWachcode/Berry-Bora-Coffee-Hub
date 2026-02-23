@@ -13,16 +13,16 @@ const Navigation = () => {
   ];
 
   return (
-    <nav className="bg-white shadow-sm sticky top-0 z-10">
-      <div className="container mx-auto px-4">
+    <nav style={{ backgroundColor: 'white', position: 'sticky', top: 0, zIndex: 10, boxShadow: '0 1px 3px rgba(0,0,0,0.1)' }}>
+      <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 0.5rem' }}>
         <ul style={{ 
           display: 'flex', 
-          justifyContent: 'center', 
+          justifyContent: 'space-around', 
           alignItems: 'center', 
-          gap: '2rem', 
           padding: '0.75rem 0',
           listStyle: 'none',
-          margin: 0 
+          margin: 0,
+          flexWrap: 'wrap'
         }}>
           {navItems.map((item) => (
             <li key={item.path}>
@@ -30,18 +30,18 @@ const Navigation = () => {
                 to={item.path}
                 style={{ 
                   display: 'flex', 
+                  flexDirection: 'column',
                   alignItems: 'center', 
-                  gap: '0.5rem',
-                  textDecoration: 'none'
+                  gap: '0.25rem',
+                  color: location.pathname === item.path ? '#3d8b3d' : '#666',
+                  fontWeight: location.pathname === item.path ? '600' : '400',
+                  textDecoration: 'none',
+                  fontSize: '0.75rem',
+                  padding: '0.25rem 0.5rem'
                 }}
-                className={
-                  location.pathname === item.path
-                    ? 'text-green-600 font-semibold'
-                    : 'text-gray-600 hover:text-gray-800'
-                }
               >
-                <i className={`fas ${item.icon}`}></i>
-                <span className="text-sm">{item.label}</span>
+                <i className={`fas ${item.icon}`} style={{ fontSize: '1.25rem' }}></i>
+                <span>{item.label}</span>
               </Link>
             </li>
           ))}

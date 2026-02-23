@@ -3,41 +3,114 @@ import { Link } from 'react-router-dom';
 
 const Home = () => {
   return (
-    <section className="relative h-[80vh] flex items-center justify-center text-center text-white">
-      {/* Background Image - More Visible */}
+    <section style={{ 
+      position: 'relative', 
+      minHeight: '80vh',
+      display: 'flex', 
+      alignItems: 'center', 
+      justifyContent: 'center', 
+      textAlign: 'center', 
+      color: 'white',
+      padding: '1rem'
+    }}>
+      {/* Background Image */}
       <div 
-        className="absolute inset-0 bg-cover bg-center"
         style={{
+          position: 'absolute',
+          inset: 0,
           backgroundImage: 'url(https://images.unsplash.com/photo-1447933601403-0c6688de566e?w=1600&q=80)',
+          backgroundSize: 'cover',
+          backgroundPosition: 'center'
         }}
       >
-        {/* Darker overlay for better text contrast */}
-        <div className="absolute inset-0 bg-black bg-opacity-40"></div>
+        <div style={{ 
+          position: 'absolute', 
+          inset: 0, 
+          backgroundColor: 'rgba(0, 0, 0, 0.4)' 
+        }}></div>
       </div>
 
-      {/* Content Card - More Transparent */}
-      <div className="relative z-10 bg-black bg-opacity-20 backdrop-blur-sm p-8 rounded-2xl max-w-2xl mx-4">
-        <div className="mx-auto mb-4 w-24 h-24 bg-white bg-opacity-90 rounded-full flex items-center justify-center shadow-lg">
-          <i className="fas fa-coffee text-5xl text-coffee-dark"></i>
+      {/* Content Card */}
+      <div style={{ 
+        position: 'relative', 
+        zIndex: 10, 
+        backgroundColor: 'rgba(0, 0, 0, 0.2)', 
+        backdropFilter: 'blur(8px)',
+        padding: '2rem 1.5rem',
+        borderRadius: '1rem',
+        maxWidth: '40rem',
+        width: '100%'
+      }}>
+        <div style={{ 
+          margin: '0 auto 1rem', 
+          width: '5rem', 
+          height: '5rem', 
+          backgroundColor: 'rgba(255, 255, 255, 0.9)', 
+          borderRadius: '50%', 
+          display: 'flex', 
+          alignItems: 'center', 
+          justifyContent: 'center',
+          boxShadow: '0 4px 6px rgba(0,0,0,0.1)'
+        }}>
+          <i className="fas fa-coffee" style={{ fontSize: '3rem', color: '#6d4c41' }}></i>
         </div>
-        <h1 className="text-4xl md:text-5xl font-bold mb-2 drop-shadow-lg">
+        
+        <h1 style={{ 
+          fontSize: 'clamp(1.75rem, 5vw, 3rem)', 
+          fontWeight: 'bold', 
+          marginBottom: '0.5rem',
+          textShadow: '2px 2px 4px rgba(0,0,0,0.5)'
+        }}>
           Welcome to Berry Bora
         </h1>
-        <p className="text-lg md:text-xl mb-6 drop-shadow-md">
+        
+        <p style={{ 
+          fontSize: 'clamp(1rem, 3vw, 1.25rem)', 
+          marginBottom: '1.5rem',
+          textShadow: '1px 1px 2px rgba(0,0,0,0.5)'
+        }}>
           Empowering Kenyan Coffee Farmers with Real-Time Market Insights & Local Support
         </p>
         
-        {/* Buttons - Always Horizontal */}
-        <div className="flex flex-row justify-center gap-4 flex-wrap">
+        {/* Buttons */}
+        <div style={{ 
+          display: 'flex', 
+          flexDirection: 'column',
+          gap: '1rem',
+          alignItems: 'center'
+        }}>
           <Link 
             to="/prices" 
-            className="bg-amber-700 hover:bg-amber-800 text-white py-3 px-8 rounded-md font-semibold shadow-lg transition-all hover:shadow-xl whitespace-nowrap"
+            style={{
+              backgroundColor: '#b45309',
+              color: 'white',
+              padding: '0.75rem 2rem',
+              borderRadius: '0.375rem',
+              fontWeight: '600',
+              textDecoration: 'none',
+              boxShadow: '0 4px 6px rgba(0,0,0,0.1)',
+              width: '100%',
+              maxWidth: '15rem',
+              display: 'block'
+            }}
           >
             Get Started
           </Link>
           <Link 
             to="/trends" 
-            className="bg-white bg-opacity-20 hover:bg-opacity-30 backdrop-blur-sm text-white py-3 px-8 rounded-md font-semibold border-2 border-white border-opacity-50 transition-all whitespace-nowrap"
+            style={{
+              backgroundColor: 'rgba(255, 255, 255, 0.2)',
+              color: 'white',
+              padding: '0.75rem 2rem',
+              borderRadius: '0.375rem',
+              fontWeight: '600',
+              textDecoration: 'none',
+              border: '2px solid rgba(255, 255, 255, 0.5)',
+              backdropFilter: 'blur(8px)',
+              width: '100%',
+              maxWidth: '15rem',
+              display: 'block'
+            }}
           >
             View Trends
           </Link>

@@ -68,7 +68,7 @@ const Settings = () => {
               pattern="^(\+254|0|254)?7\d{8}$" placeholder='0712345678'
               className="w-full px-3 py-2 border rounded focus:ring-2 focus:ring-coffee-dark"
               />
-              <p className="text-xs text-gray-500">Valid Kenyan phone number: {tempNumber}</p>
+              <p className="text-xs text-gray-500">Valid phone number: {tempNumber}</p>
           </div>
               <span
                 className={`inline-block h-4 w-4 transform rounded-full bg-white transition ${
