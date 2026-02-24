@@ -1,4 +1,5 @@
 import { create } from 'zustand';
+import { fetchWeatherData, generateWeatherAlerts } from '../services/weatherApi';
 
 export const useAppStore = create((set) => ({
   // User state
@@ -16,6 +17,12 @@ export const useAppStore = create((set) => ({
   
   // Help dialog state
   helpDialogOpen: false,
+
+  // Weather data
+  weatherData: null,
+  weatherLoading: false,
+  weatherError: null,
+  weatherSource: 'mock',
   
   // Weight records
   weightRecords: [],
@@ -98,4 +105,34 @@ export const useAppStore = create((set) => ({
       ...state.alerts,
     ],
   })),
+
+  fetchWeather: async () => {
+    set({ weatherLoading: true, weatherError: null });
+
+    try {
+      const result = await fetchWeatherData();
+      
+      if (result.success) {
+        const weatherAlerts = generateWeatherAlerts(result.data);
+        set((state) => ({
+          weatherData: result.data,
+          weatherSource: result.source,
+          weatherLoading: false,
+          alerts: [...weatherAlerts, ...state.alerts],
+        }));
+      }
+        else {
+          set({
+            weatherError: 'Failed to fetch weather data',
+            weatherLoading: false,
+          });
+        }
+      } catch (error) {
+        set({
+          weatherError: error.message || 'An error occurred while fetching weather data',
+          weatherLoading: false,
+        });
+      }
+    },
 }));
+        
