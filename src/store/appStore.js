@@ -1,23 +1,26 @@
 import { create } from 'zustand';
 import { fetchWeatherData, generateWeatherAlerts } from '../services/weatherApi';
+import { fetchCoffeePrices } from '../services/kilimoApi';
 
-export const useAppStore = create((set) => ({
-  // User state
-  user: {
-    name: 'Farmer',
-    isAuthenticated: true,
-  },
+export const useAppStore = create((set, get) => ({
+  // User 
   userName: 'Farmer',
   
-  // Notification state
+  // Notification
   notification: {
     show: false,
     message: '',
   },
   
-  // Help dialog state
+  // Help dialog 
   helpDialogOpen: false,
-
+  
+  // Coffee Prices 
+  coffeePrices: [],
+  pricesLoading: false,
+  pricesError: null,
+  pricesSource: 'mock',
+  
   // Weather data
   weatherData: null,
   weatherLoading: false,
@@ -27,7 +30,7 @@ export const useAppStore = create((set) => ({
   // Weight records
   weightRecords: [],
   
-  // Price data (mock data for now)
+  // Price trend data (for charts)
   priceData: {
     labels: ['Dec', 'Jan', 'Feb', 'Mar', 'Apr', 'May'],
     values: [510, 495, 520, 530, 525, 550],
@@ -50,13 +53,6 @@ export const useAppStore = create((set) => ({
     },
     {
       id: 2,
-      type: 'weather',
-      message: 'Heavy rainfall expected in the next 48 hours',
-      date: new Date('2025-02-12'),
-      severity: 'warning',
-    },
-    {
-      id: 3,
       type: 'market',
       message: 'High demand from European buyers',
       date: new Date('2025-02-13'),
@@ -64,7 +60,7 @@ export const useAppStore = create((set) => ({
     },
   ],
   
-  // Actions (functions to modify state)
+  // Actions
   showNotification: (message) => set(() => ({
     notification: { show: true, message },
   })),
@@ -79,9 +75,8 @@ export const useAppStore = create((set) => ({
   
   closeHelpDialog: () => set({ helpDialogOpen: false }),
   
-  setUserName: (name) => set((state) => ({
+  setUserName: (name) => set(() => ({
     userName: name,
-    user: { ...state.user, name },
   })),
   
   addWeightRecord: (record) => set((state) => ({
@@ -105,34 +100,72 @@ export const useAppStore = create((set) => ({
       ...state.alerts,
     ],
   })),
-
+  
+  // Fetch coffee prices from KilimoSTAT
+  fetchPrices: async () => {
+    set({ pricesLoading: true, pricesError: null });
+    
+    try {
+      const result = await fetchCoffeePrices();
+      
+      if (result.success) {
+        set({
+          coffeePrices: result.data,
+          pricesSource: result.source,
+          pricesLoading: false,
+        });
+      } else {
+        set({
+          pricesError: 'Failed to fetch prices',
+          pricesLoading: false,
+        });
+      }
+    } catch (error) {
+      set({
+        pricesError: error.message,
+        pricesLoading: false,
+      });
+    }
+  },
+  
+  // Fetch weather data
   fetchWeather: async () => {
     set({ weatherLoading: true, weatherError: null });
-
+    
     try {
       const result = await fetchWeatherData();
       
       if (result.success) {
         const weatherAlerts = generateWeatherAlerts(result.data);
+        
         set((state) => ({
           weatherData: result.data,
           weatherSource: result.source,
           weatherLoading: false,
           alerts: [...weatherAlerts, ...state.alerts],
         }));
-      }
-        else {
-          set({
-            weatherError: 'Failed to fetch weather data',
-            weatherLoading: false,
-          });
-        }
-      } catch (error) {
+      } else {
         set({
-          weatherError: error.message || 'An error occurred while fetching weather data',
+          weatherError: 'Failed to fetch weather',
           weatherLoading: false,
         });
       }
-    },
+    } catch (error) {
+      set({
+        weatherError: error.message,
+        weatherLoading: false,
+      });
+    }
+  },
+  
+  // Initialize all data
+  initialize: async () => {
+    const { fetchPrices, fetchWeather } = get();
+    console.log('🚀 Initializing Berry Bora...');
+    await Promise.all([
+      fetchPrices(),
+      fetchWeather(),
+    ]);
+    console.log('✅ Initialization complete');
+  },
 }));
-        

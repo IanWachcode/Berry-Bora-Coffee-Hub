@@ -114,6 +114,24 @@ const Home = () => {
           >
             View Trends
           </Link>
+          <Link 
+            to="/alerts" 
+            style={{
+              backgroundColor: '#b45309',
+              color: 'white',
+              padding: '0.75rem 2rem',
+              borderRadius: '0.375rem',
+              fontWeight: '600',
+              textDecoration: 'none',
+              border: '2px solid rgba(255, 255, 255, 0.5)',
+              backdropFilter: 'blur(8px)',
+              width: '100%',
+              maxWidth: '15rem',
+              display: 'block'
+            }}
+          >
+            View Alerts
+          </Link>
         </div>
       </div>
     </section>
