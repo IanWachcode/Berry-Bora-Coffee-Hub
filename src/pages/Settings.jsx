@@ -3,43 +3,75 @@ import { useAppStore } from '../store/appStore';
 
 const Settings = () => {
   const userName = useAppStore((state) => state.userName);
+  const settings = useAppStore((state) => state.settings);
   const setUserName = useAppStore((state) => state.setUserName);
+  const updateSettings = useAppStore((state) => state.updateSettings);
+  const clearWeightRecords = useAppStore((state) => state.clearWeightRecords);
   const showNotification = useAppStore((state) => state.showNotification);
   
   const [tempName, setTempName] = useState(userName);
-  const [tempNumber, setTempNumber] = useState('');
-  const [language, setLanguage] = useState('en');
-  const [notifications, setNotifications] = useState(true);
+  const [language, setLanguage] = useState(settings.language || 'en');
+  const [notifications, setNotifications] = useState(settings.notifications !== false);
 
   const handleSave = (e) => {
     e.preventDefault();
     setUserName(tempName);
-    showNotification('Settings saved!');
+    updateSettings({ language, notifications });
+    showNotification('Settings saved successfully!');
+  };
+
+  const handleClearData = () => {
+    if (window.confirm('Are you sure you want to clear all weight records? This cannot be undone.')) {
+      clearWeightRecords();
+      showNotification('All weight records cleared!');
+    }
   };
 
   return (
-    <div className="container mx-auto px-4 py-4 max-w-xl">
-      <h2 className="text-2xl font-bold mb-1">Settings</h2>
-      <p className="text-sm text-gray-600 mb-4">Manage your preferences</p>
+    <div style={{ padding: '1rem', maxWidth: '600px', margin: '0 auto' }}>
+      <h2 style={{ fontSize: 'clamp(1.5rem, 4vw, 2rem)', fontWeight: 'bold', marginBottom: '0.5rem' }}>
+        Settings
+      </h2>
+      <p style={{ fontSize: '0.875rem', color: '#666', marginBottom: '1rem' }}>
+        Manage your preferences
+      </p>
 
-      <div className="bg-white rounded-lg shadow p-4">
-        <form onSubmit={handleSave} className="space-y-3">
-          <div>
-            <label className="block text-sm font-medium mb-1">Your Name</label>
+      <div style={{ backgroundColor: 'white', borderRadius: '0.5rem', boxShadow: '0 1px 3px rgba(0,0,0,0.1)', padding: '1.5rem' }}>
+        <form onSubmit={handleSave} style={{ marginBottom: '1.5rem' }}>
+          {/* Name Input */}
+          <div style={{ marginBottom: '1rem' }}>
+            <label style={{ display: 'block', fontSize: '0.875rem', fontWeight: '500', marginBottom: '0.5rem' }}>
+              Your Name
+            </label>
             <input
               type="text"
               value={tempName}
               onChange={(e) => setTempName(e.target.value)}
-              className="w-full px-3 py-2 border rounded focus:ring-2 focus:ring-coffee-dark"
+              style={{
+                width: '100%',
+                padding: '0.75rem',
+                border: '1px solid #d1d5db',
+                borderRadius: '0.375rem',
+                fontSize: '1rem'
+              }}
             />
           </div>
 
-          <div>
-            <label className="block text-sm font-medium mb-1">Language</label>
+          {/* Language Select */}
+          <div style={{ marginBottom: '1rem' }}>
+            <label style={{ display: 'block', fontSize: '0.875rem', fontWeight: '500', marginBottom: '0.5rem' }}>
+              Language
+            </label>
             <select
               value={language}
               onChange={(e) => setLanguage(e.target.value)}
-              className="w-full px-3 py-2 border rounded focus:ring-2 focus:ring-coffee-dark"
+              style={{
+                width: '100%',
+                padding: '0.75rem',
+                border: '1px solid #d1d5db',
+                borderRadius: '0.375rem',
+                fontSize: '1rem'
+              }}
             >
               <option value="en">English</option>
               <option value="sw">Swahili</option>
@@ -47,48 +79,109 @@ const Settings = () => {
             </select>
           </div>
 
-          <div className="flex items-center justify-between p-2 bg-gray-50 rounded">
+          {/* Notifications Toggle */}
+          <div style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'space-between',
+            padding: '1rem',
+            backgroundColor: '#f9fafb',
+            borderRadius: '0.375rem',
+            marginBottom: '1rem'
+          }}>
             <div>
-              <p className="text-sm font-medium">Push Notifications</p>
-              <p className="text-xs text-gray-500">Receive alerts</p>
+              <p style={{ fontSize: '0.875rem', fontWeight: '500', marginBottom: '0.25rem' }}>
+                Push Notifications
+              </p>
+              <p style={{ fontSize: '0.75rem', color: '#666' }}>
+                Receive alerts about prices and weather
+              </p>
             </div>
             <button
               type="button"
               onClick={() => setNotifications(!notifications)}
-              className={`relative inline-flex h-6 w-11 items-center rounded-full ${
-                notifications ? 'bg-green-600' : 'bg-gray-300'
-              }`}
+              style={{
+                position: 'relative',
+                display: 'inline-flex',
+                height: '1.5rem',
+                width: '2.75rem',
+                alignItems: 'center',
+                borderRadius: '9999px',
+                backgroundColor: notifications ? '#16a34a' : '#d1d5db',
+                border: 'none',
+                cursor: 'pointer',
+                transition: 'background-color 0.2s'
+              }}
             >
-              <div>
-            <label className="block text-sm font-medium mb-1">Enter Phone Number</label>
-            <input
-              type="tell"
-              value={tempNumber}
-              onChange={(e) => setTempNumber(e.target.value)}
-              pattern="^(\+254|0|254)?7\d{8}$" placeholder='0712345678'
-              className="w-full px-3 py-2 border rounded focus:ring-2 focus:ring-coffee-dark"
-              />
-              <p className="text-xs text-gray-500">Valid phone number: {tempNumber}</p>
-          </div>
               <span
-                className={`inline-block h-4 w-4 transform rounded-full bg-white transition ${
-                  notifications ? 'translate-x-6' : 'translate-x-1'
-                }`}
+                style={{
+                  display: 'inline-block',
+                  height: '1rem',
+                  width: '1rem',
+                  transform: notifications ? 'translateX(1.5rem)' : 'translateX(0.25rem)',
+                  borderRadius: '9999px',
+                  backgroundColor: 'white',
+                  transition: 'transform 0.2s'
+                }}
               />
             </button>
           </div>
 
+          {/* Save Button */}
           <button
             type="submit"
-            className="w-full bg-coffee-dark hover:bg-coffee-medium text-white font-semibold py-2 rounded"
+            style={{
+              width: '100%',
+              backgroundColor: '#6d4c41',
+              color: 'white',
+              fontWeight: '600',
+              padding: '0.75rem',
+              borderRadius: '0.375rem',
+              border: 'none',
+              cursor: 'pointer'
+            }}
           >
+            <i className="fas fa-save" style={{ marginRight: '0.5rem' }}></i>
             Save Settings
           </button>
         </form>
 
-        <div className="mt-4 pt-4 border-t text-xs text-gray-600 space-y-1">
-          <p><strong>Version:</strong> 1.0.2</p>
-          <p><strong>SMS:</strong> 22000</p>
+        {/* Data Management Section */}
+        <div style={{ paddingTop: '1.5rem', borderTop: '1px solid #e5e7eb' }}>
+          <h3 style={{ fontSize: '1rem', fontWeight: '600', marginBottom: '1rem' }}>
+            Data Management
+          </h3>
+          <button
+            onClick={handleClearData}
+            style={{
+              width: '100%',
+              backgroundColor: '#ef4444',
+              color: 'white',
+              fontWeight: '600',
+              padding: '0.75rem',
+              borderRadius: '0.375rem',
+              border: 'none',
+              cursor: 'pointer'
+            }}
+          >
+            <i className="fas fa-trash" style={{ marginRight: '0.5rem' }}></i>
+            Clear All Weight Records
+          </button>
+          <p style={{ fontSize: '0.75rem', color: '#666', marginTop: '0.5rem', textAlign: 'center' }}>
+            This will permanently delete all your weight records
+          </p>
+        </div>
+
+        {/* About Section */}
+        <div style={{ marginTop: '1.5rem', paddingTop: '1.5rem', borderTop: '1px solid #e5e7eb' }}>
+          <h3 style={{ fontSize: '0.875rem', fontWeight: '600', marginBottom: '0.75rem' }}>
+            About Berry Bora
+          </h3>
+          <div style={{ fontSize: '0.75rem', color: '#666', lineHeight: '1.5' }}>
+            <p style={{ marginBottom: '0.25rem' }}><strong>Version:</strong> 1.0.2</p>
+            <p style={{ marginBottom: '0.25rem' }}><strong>SMS:</strong> 22000</p>
+            <p style={{ marginBottom: '0.25rem' }}><strong>Data:</strong> Stored locally on your device</p>
+          </div>
         </div>
       </div>
     </div>

@@ -1,21 +1,22 @@
 import { create } from 'zustand';
 import { fetchWeatherData, generateWeatherAlerts } from '../services/weatherApi';
 import { fetchCoffeePrices } from '../services/kilimoApi';
+import { saveToLocalStorage, loadFromLocalStorage, STORAGE_KEYS } from '../utils/localStorage';
 
 export const useAppStore = create((set, get) => ({
-  // User 
-  userName: 'Farmer',
+  // User state - load from localStorage
+  userName: loadFromLocalStorage(STORAGE_KEYS.USER_NAME, 'Farmer'),
   
-  // Notification
+  // Notification state
   notification: {
     show: false,
     message: '',
   },
   
-  // Help dialog 
+  // Help dialog state
   helpDialogOpen: false,
   
-  // Coffee Prices 
+  // Coffee Prices state
   coffeePrices: [],
   pricesLoading: false,
   pricesError: null,
@@ -27,8 +28,14 @@ export const useAppStore = create((set, get) => ({
   weatherError: null,
   weatherSource: 'mock',
   
-  // Weight records
-  weightRecords: [],
+  // Weight records - load from localStorage
+  weightRecords: loadFromLocalStorage(STORAGE_KEYS.WEIGHT_RECORDS, []),
+  
+  // Settings - load from localStorage
+  settings: loadFromLocalStorage(STORAGE_KEYS.SETTINGS, {
+    language: 'en',
+    notifications: true,
+  }),
   
   // Price trend data (for charts)
   priceData: {
@@ -75,20 +82,46 @@ export const useAppStore = create((set, get) => ({
   
   closeHelpDialog: () => set({ helpDialogOpen: false }),
   
-  setUserName: (name) => set(() => ({
-    userName: name,
-  })),
+  // Save user name to localStorage
+  setUserName: (name) => {
+    saveToLocalStorage(STORAGE_KEYS.USER_NAME, name);
+    set(() => ({ userName: name }));
+  },
   
-  addWeightRecord: (record) => set((state) => ({
-    weightRecords: [
-      ...state.weightRecords,
-      {
-        ...record,
-        id: Date.now(),
-        date: new Date(),
-      },
-    ],
-  })),
+  // Add weight record and save to localStorage
+  addWeightRecord: (record) => set((state) => {
+    const newRecord = {
+      ...record,
+      id: Date.now(),
+      date: new Date().toISOString(),
+    };
+    const newRecords = [...state.weightRecords, newRecord];
+    
+    // Save to localStorage
+    saveToLocalStorage(STORAGE_KEYS.WEIGHT_RECORDS, newRecords);
+    
+    return { weightRecords: newRecords };
+  }),
+  
+  // Delete weight record
+  deleteWeightRecord: (id) => set((state) => {
+    const newRecords = state.weightRecords.filter(record => record.id !== id);
+    saveToLocalStorage(STORAGE_KEYS.WEIGHT_RECORDS, newRecords);
+    return { weightRecords: newRecords };
+  }),
+  
+  // Clear all weight records
+  clearWeightRecords: () => {
+    saveToLocalStorage(STORAGE_KEYS.WEIGHT_RECORDS, []);
+    set({ weightRecords: [] });
+  },
+  
+  // Update settings
+  updateSettings: (newSettings) => set((state) => {
+    const updatedSettings = { ...state.settings, ...newSettings };
+    saveToLocalStorage(STORAGE_KEYS.SETTINGS, updatedSettings);
+    return { settings: updatedSettings };
+  }),
   
   addAlert: (alert) => set((state) => ({
     alerts: [
@@ -162,10 +195,17 @@ export const useAppStore = create((set, get) => ({
   initialize: async () => {
     const { fetchPrices, fetchWeather } = get();
     console.log('🚀 Initializing Berry Bora...');
+    console.log('📦 Loaded from localStorage:', {
+      userName: get().userName,
+      weightRecords: get().weightRecords.length,
+      settings: get().settings,
+    });
+    
     await Promise.all([
       fetchPrices(),
       fetchWeather(),
     ]);
+    
     console.log('✅ Initialization complete');
   },
 }));

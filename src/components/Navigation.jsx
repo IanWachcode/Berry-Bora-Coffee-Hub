@@ -9,6 +9,7 @@ const Navigation = () => {
     { path: '/trends', icon: 'fa-chart-line', label: 'Trends' },
     { path: '/alerts', icon: 'fa-exclamation-triangle', label: 'Alerts' },
     { path: '/weights', icon: 'fa-weight', label: 'Weights' },
+    { path: '/about', icon: 'fa-info-circle', label: 'About' },
     { path: '/settings', icon: 'fa-cog', label: 'Settings' },
   ];
 
