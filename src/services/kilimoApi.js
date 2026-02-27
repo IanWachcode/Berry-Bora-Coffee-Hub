@@ -1,7 +1,17 @@
 import { API_CONFIG, fetchWithErrorHandling, MOCK_COFFEE_PRICES } from "../utils/api";
 
 export const fetchCoffeePrices = async () => {
-    const url = `${API_CONFIG.kilimo.baseUrl}${API_CONFIG.kilimo.endpoints.prices}`;
+  console.log('📊 Fetching coffee prices from kilimoSTAT...');
+  console.log('🔗 API_CONFIG:', API_CONFIG);
+
+  if (!API_CONFIG || !API_CONFIG.kilimo) {
+    console.error('❌ API_CONFIG for kilimo is missing or incomplete');
+    return { success: false, error: 'API configuration error' };
+  }
+
+  const url = `${API_CONFIG.kilimo.baseUrl}${API_CONFIG.kilimo.endpoints.prices}`;
+  console.log('🔗 Fetching from URL:', url);
+  console.log(' Timeout set to 10 seconds');
 
     console.log('📊 Fetching coffee prices from kilimoSTAT...');
 

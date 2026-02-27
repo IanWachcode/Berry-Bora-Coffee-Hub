@@ -177,11 +177,7 @@ const Settings = () => {
           <h3 style={{ fontSize: '0.875rem', fontWeight: '600', marginBottom: '0.75rem' }}>
             About Berry Bora
           </h3>
-          <div style={{ fontSize: '0.75rem', color: '#666', lineHeight: '1.5' }}>
-            <p style={{ marginBottom: '0.25rem' }}><strong>Version:</strong> 1.0.2</p>
-            <p style={{ marginBottom: '0.25rem' }}><strong>SMS:</strong> 22000</p>
-            <p style={{ marginBottom: '0.25rem' }}><strong>Data:</strong> Stored locally on your device</p>
-          </div>
+          <a href='/about' style={{ color: '#6d4c41', textDecoration: 'none' }}>View About Page</a>
         </div>
       </div>
     </div>
