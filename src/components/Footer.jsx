@@ -36,10 +36,10 @@ const Footer = () => {
             onMouseEnter={(e) => e.currentTarget.style.opacity = '1'}
             onMouseLeave={(e) => e.currentTarget.style.opacity = '0.9'}
           >
-            <i className="fas fa-message"></i>
-            <span>SMS: 22000</span>
             <i className="fas fa-phone"></i>
             <span>Call: 0712345678</span>
+            <i className="fas fa-message"></i>
+            <span>SMS: 22000</span>
           </a>
           <a 
             href="mailto:support@berrybora.ke" 
