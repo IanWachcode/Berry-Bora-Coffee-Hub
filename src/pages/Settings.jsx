@@ -55,6 +55,36 @@ const Settings = () => {
                 fontSize: '1rem'
               }}
             />
+            <label style={{ display: 'block', fontSize: '0.875rem', fontWeight: '500', marginBottom: '0.5rem' }}>
+              Email Address
+            </label>
+            <input
+              type="email"
+              value={settings.email || ''}
+              onChange={(e) => updateSettings({ email: e.target.value })}
+              style={{
+                width: '100%',
+                padding: '0.75rem',
+                border: '1px solid #d1d5db',
+                borderRadius: '0.375rem',
+                fontSize: '1rem'
+              }}
+            />
+            <label style={{ display: 'block', fontSize: '0.875rem', fontWeight: '500', marginBottom: '0.5rem' }}>
+              Phone Number
+            </label>
+            <input
+              type="Number"
+              value={settings.phone || ''}
+              onChange={(e) => updateSettings({ phone: e.target.value })}
+              style={{
+                width: '100%',
+                padding: '0.75rem',
+                border: '1px solid #d1d5db',
+                borderRadius: '0.375rem',
+                fontSize: '1rem'
+              }}
+            />
           </div>
 
           {/* Language Select */}
