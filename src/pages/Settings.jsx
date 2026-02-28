@@ -75,7 +75,6 @@ const Settings = () => {
             >
               <option value="en">English</option>
               <option value="sw">Swahili</option>
-              <option value="ki">Kikuyu</option>
             </select>
           </div>
 

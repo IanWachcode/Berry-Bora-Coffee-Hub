@@ -6,9 +6,6 @@ export default {
   ],
   theme: {
     extend: {
-      fontFamily: {
-        poppins: ['Poppins', 'sans-serif'],
-      },
       colors: {
         coffee: {
           dark: '#6d4c41',
@@ -19,6 +16,9 @@ export default {
         green: {
           primary: '#3d8b3d',
         },
+      },
+      fontFamily: {
+        poppins: ['Poppins', 'sans-serif'],
       },
     },
   },

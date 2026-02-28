@@ -7,14 +7,41 @@ const Header = () => {
 
   return (
     <header className="coffee-gradient text-white p-4 shadow-md">
-      <div className="container mx-auto flex justify-between items-center">
-        <Link to="/" className="flex items-center hover:opacity-90 transition-opacity">
-          <i className="fas fa-coffee text-2xl mr-2"></i>
-          <h1 className="text-xl font-bold">Berry Bora</h1>
+      <div style={{ 
+        maxWidth: '1200px', 
+        margin: '0 auto',
+        display: 'grid',
+        gridTemplateColumns: '1fr auto 1fr',
+        alignItems: 'center',
+        gap: '1rem'
+      }}>
+        {/* Left spacer */}
+        <div></div>
+        
+        {/* Center - Logo */}
+        <Link 
+          to="/" 
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: '0.5rem',
+            textDecoration: 'none',
+            color: 'white',
+            justifyContent: 'center'
+          }}
+        >
+          <i className="fas fa-coffee" style={{ fontSize: '1.5rem' }}></i>
+          <h1 style={{ fontSize: '1.25rem', fontWeight: 'bold', margin: 0 }}>Berry Bora</h1>
         </Link>
-        <div className="flex items-center">
-          <span className="hidden sm:inline text-sm mr-2">Welcome, {userName}</span>
-          <i className="fas fa-user-circle text-xl"></i>
+        
+        {/* Right - User Info */}
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'flex-end', gap: '0.5rem' }}>
+          <span style={{ fontSize: '0.875rem' }} className="hidden sm:inline">
+            Welcome, {userName}
+          </span>
+          <Link to="/settings" style={{ color: 'white' }}>
+          <i className="fas fa-user-circle" style={{ fontSize: '1.25rem' }}></i>
+          </Link>
         </div>
       </div>
     </header>

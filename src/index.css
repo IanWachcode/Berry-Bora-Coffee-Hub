@@ -1,9 +1,9 @@
+/* Import Poppins font - MUST BE FIRST */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-/* Import Poppins font */
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
 
 /* Base styles */
 body {
@@ -97,43 +97,4 @@ body {
   .navbar-text {
     display: none;
   }
-}
-/* Logo hover effect */
-.logo-hover:hover .fa-coffee {
-  animation: coffeeRotate 0.5s ease-in-out;
-}
-
-@keyframes coffeeRotate {
-  0%, 100% {
-    transform: rotate(0deg);
-  }
-  25% {
-    transform: rotate(-10deg);
-  }
-  75% {
-    transform: rotate(10deg);
-  }
-}
-@media (max-width: 640px) {
-  .navbar-text {
-    display: none;
-  }
-}
-/* Better text shadows for hero text */
-.text-shadow {
-  text-shadow: 2px 4px 8px rgba(0, 0, 0, 0.8);
-}
-
-.text-shadow-sm {
-  text-shadow: 1px 2px 4px rgba(0, 0, 0, 0.6);
-}
-
-/* Gradient overlay helper */
-.overlay-gradient {
-  background: linear-gradient(
-    to bottom,
-    rgba(0, 0, 0, 0.2) 0%,
-    rgba(0, 0, 0, 0.4) 50%,
-    rgba(0, 0, 0, 0.6) 100%
-  );
 }

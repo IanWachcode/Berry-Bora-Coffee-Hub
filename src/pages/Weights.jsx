@@ -63,8 +63,14 @@ const Weights = () => {
 
         <div className="mt-3 p-2 bg-blue-50 rounded text-sm">
           <i className="fas fa-sms mr-2"></i>
-          SMS: <strong>WEIGHT 150KG</strong> to 22000
+          SMS: <strong>WEIGHT RECORD </strong> to 22000
         </div>
+        <button onClick={() => showNotification('SMS sent successfully!')}
+        type="button"
+        className="w-full bg-gray-500 hover:bg-gray-600 text-white font-semibold py-2 rounded"
+        >
+          <i className="fas fa-message mr-2"></i>Send SMS
+        </button>
       </div>
 
       {weightRecords.length > 0 && (
@@ -74,7 +80,9 @@ const Weights = () => {
             <thead className="bg-gray-50">
               <tr>
                 <th className="text-left p-2">Date</th>
+                <br />
                 <th className="text-left p-2">Variety</th>
+                <br />
                 <th className="text-right p-2">Weight</th>
               </tr>
             </thead>
@@ -82,7 +90,9 @@ const Weights = () => {
               {weightRecords.slice().reverse().map((record) => (
                 <tr key={record.id} className="border-b last:border-b-0">
                   <td className="p-2">{new Date(record.date).toLocaleDateString()}</td>
+                  <br />
                   <td className="p-2 capitalize">{record.variety.replace('-', ' ')}</td>
+                  <br />
                   <td className="p-2 text-right font-semibold">{record.weight} kg</td>
                 </tr>
               ))}

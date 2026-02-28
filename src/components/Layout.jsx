@@ -25,7 +25,6 @@ const Layout = () => {
 
       {/* Global Components */}
       <Notification />
-      <HelpButton />
     </div>
   );
 };

@@ -14,7 +14,7 @@ const Navigation = () => {
   ];
 
   return (
-    <nav style={{ backgroundColor: 'white', position: 'sticky', top: 0, zIndex: 10, boxShadow: '0 1px 3px rgba(0,0,0,0.1)' }}>
+    <nav style={{ backgroundColor: '#f9fafb', position: 'sticky', top: 0, zIndex: 10, boxShadow: '0 1px 3px rgba(0,0,0,0.1)' }}>
       <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 0.5rem' }}>
         <ul style={{ 
           display: 'flex', 
