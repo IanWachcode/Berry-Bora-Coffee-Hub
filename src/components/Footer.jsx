@@ -11,7 +11,7 @@ const Footer = () => {
       }}>
         <div style={{ marginBottom: '1rem' }}>
           <p style={{ fontSize: '0.875rem', fontWeight: '500', marginBottom: '0.25rem' }}>
-            © 2025 Berry Bora Coffee Hub | Empowering Kenyan Coffee Farmers
+            © 2026 Berry Bora Coffee Hub | Empowering Kenyan Coffee Farmers
           </p>
         </div>
         
