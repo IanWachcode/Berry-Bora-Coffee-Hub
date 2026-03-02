@@ -10,7 +10,7 @@ const Alerts = () => {
   // Fetch weather when page loads
   useEffect(() => {
     fetchWeather();
-  }, [fetchWeather]);
+  }, [fetchWeather]);UPWORK
 
   const getSeverityColor = (severity) => {
     switch (severity) {
